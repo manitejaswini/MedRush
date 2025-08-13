@@ -2,8 +2,9 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function SignalTriggeredPage() {
+function SignalTriggeredContent() {
   const params = useSearchParams();
   const hospitalId = params.get("hospitalId") || "";
   return (
@@ -19,6 +20,22 @@ export default function SignalTriggeredPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function SignalTriggeredPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-dvh bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900 text-zinc-900 dark:text-zinc-100">
+        <section className="px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-xl mx-auto rounded-xl border border-green-300/70 dark:border-green-800/60 bg-emerald-50/70 dark:bg-emerald-900/20 p-6 text-center">
+            <h1 className="text-xl font-semibold text-emerald-800 dark:text-emerald-200">Loading...</h1>
+          </div>
+        </section>
+      </main>
+    }>
+      <SignalTriggeredContent />
+    </Suspense>
   );
 }
 

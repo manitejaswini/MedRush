@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
-export default function SignalTriggerPage() {
+function SignalTriggerContent() {
   const params = useSearchParams();
   const router = useRouter();
   const hospitalId = params.get("hospitalId") || "";
@@ -37,6 +37,22 @@ export default function SignalTriggerPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function SignalTriggerPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-dvh bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900 text-zinc-900 dark:text-zinc-100">
+        <section className="px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-xl mx-auto rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/80 dark:bg-zinc-900/40 backdrop-blur p-6">
+            <h1 className="text-xl font-semibold">Loading...</h1>
+          </div>
+        </section>
+      </main>
+    }>
+      <SignalTriggerContent />
+    </Suspense>
   );
 }
 
