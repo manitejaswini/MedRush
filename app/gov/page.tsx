@@ -129,6 +129,36 @@ export default function GovPage() {
           </div>
           <div className="flex items-center gap-2">
             <Link href="/hospital" className="text-sm rounded-lg border border-transparent bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2">Hospital UI</Link>
+            <Link href="/traffic" className="text-sm rounded-lg border border-transparent bg-orange-600 hover:bg-orange-700 text-white px-3 py-2">🚦 Traffic Control</Link>
+            <button 
+              onClick={async () => {
+                try {
+                  const res = await fetch("/api/blynk", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ action: "update", pin: "v0", value: 1 }),
+                  });
+                  if (res.ok) {
+                    alert("🟢 Green LED ON");
+                    // Auto-off after 2 seconds
+                    setTimeout(async () => {
+                      await fetch("/api/blynk", {
+                        method: "POST",
+                        headers: { "content-type": "application/json" },
+                        body: JSON.stringify({ action: "update", pin: "v0", value: 0 }),
+                      });
+                    }, 2000);
+                  } else {
+                    alert("Failed to control LED");
+                  }
+                } catch (e) {
+                  alert("Error: Check Blynk connection");
+                }
+              }}
+              className="text-sm rounded-lg border border-transparent bg-green-600 hover:bg-green-700 text-white px-3 py-2"
+            >
+              🟢 LED Test
+            </button>
             <Link href="/" className="text-sm rounded-lg border border-transparent bg-zinc-900/90 hover:bg-zinc-900 text-white px-3 py-2">Back</Link>
           </div>
         </div>

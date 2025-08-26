@@ -111,6 +111,7 @@ export default function PrivatePage() {
           </div>
           <div className="flex items-center gap-2">
             <Link href="/hospital" className="text-sm rounded-lg border border-transparent bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2">Hospital UI</Link>
+            <Link href="/traffic" className="text-sm rounded-lg border border-transparent bg-orange-600 hover:bg-orange-700 text-white px-3 py-2">🚦 Traffic Control</Link>
             <Link href="/select" className="text-sm rounded-lg border border-transparent bg-zinc-900/90 hover:bg-zinc-900 text-white px-3 py-2">Back</Link>
           </div>
         </div>
